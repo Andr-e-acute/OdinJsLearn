@@ -1,9 +1,9 @@
-const name = "James";
+function component() {
+  const element = document.createElement("div");
 
-const person = { first: name };
+  element.innerHTML = "Hello webpack";
 
-console.log(person);
+  return element;
+}
 
-const sayHelloLinting = (fName) => {
-  console.log(`Hello linting, ${fName}`);
-};
+document.body.appendChild(component());
