@@ -11,11 +11,14 @@ function closeDropdowns() {
 function toggleDropdown(event) {
   closeDropdowns();
   event.preventDefault();
+  event.stopPropagation();
   const dropdownList = this.querySelector(".dropdown");
   dropdownList.classList.toggle("active");
 }
+
 dropdowns.forEach((dropdown) => {
   dropdown.addEventListener("click", toggleDropdown);
 });
 
 // when window clicked close the dropdown
+document.addEventListener("click", closeDropdowns);
