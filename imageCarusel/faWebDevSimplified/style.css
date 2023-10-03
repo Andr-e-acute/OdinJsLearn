@@ -13,11 +13,17 @@ body {
   height: 100vh;
   position: relative;
 }
-
+.carousel > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 .slide {
   position: absolute;
   inset: 0;
   opacity: 0;
+  transition: 200ms opacity ease-in-out;
+  transition-delay: 200ms;
 }
 
 .slide > img {
@@ -30,6 +36,8 @@ body {
 
 .slide[data-active] {
   opacity: 1;
+  z-index: 1;
+  transition-delay: 0ms;
 }
 
 .carousel-butt {
@@ -39,6 +47,21 @@ body {
   font-size: 4rem;
   top: 50%;
   z-index: 2;
-  color: white;
+  color: rgba(255, 255, 255, 0.5);
   transform: translateY(-50%);
+  cursor: pointer;
+  background-color: rgba(1, 1, 1, 0.1);
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+}
+.carousel-butt:hover,
+.carousel-butt:focus {
+  color: white;
+  background-color: rgba(1, 1, 1, 0.3);
+}
+.carousel-butt.prev {
+  left: 1rem;
+}
+.carousel-butt.next {
+  right: 1rem;
 }

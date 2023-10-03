@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <script src="script.js" defer></script>
+    <title>Image carousel</title>
   </head>
   <body>
     <section aria-label="Newest Photos">
       <div class="carousel">
-        <button class="carousel-butt prev">&#8656</button>
-        <button class="carousel-butt next">&#8658</button>
+        <button class="carousel-butt prev" data-carousel-button="prev">&#8656</button>
+        <button class="carousel-butt next" data-carousel-button="next">&#8658</button>
         <ul>
           <li class="slide" data-active>
             <img
