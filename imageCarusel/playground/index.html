@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CodePen - Infinite Slider</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <main class="main">
+      <div class="carousel">
+        <button
+          type="button"
+          class="carousel_btn jsPrev"
+          aria-label="Previous slide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+          </svg>
+        </button>
+
+        <div class="carousel_track-container">
+          <ul class="carousel_track">
+            <li class="carousel_slide is-selected">
+              <div class="carousel_image">
+                <img
+                  src="https://images.unsplash.com/photo-1523815378073-a43ae3fbf36a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=776&q=80"
+                  alt=""
+                  role="presentation"
+                />
+              </div>
+              <h2 class="carousel_title">Slide 1</h2>
+            </li>
+            <li class="carousel_slide">
+              <div class="carousel_image">
+                <img
+                  src="https://images.unsplash.com/photo-1512203492609-972c16baa28b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
+                  alt=""
+                  role="presentation"
+                />
+              </div>
+              <h2 class="carousel_title">Slide 2</h2>
+            </li>
+            <li class="carousel_slide">
+              <div class="carousel_image">
+                <img
+                  src="https://images.unsplash.com/photo-1487803836022-91054ca05fdd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80"
+                  alt=""
+                  role="presentation"
+                />
+              </div>
+              <h2 class="carousel_title">Slide 3</h2>
+            </li>
+            <li class="carousel_slide">
+              <div class="carousel_image">
+                <img
+                  src="https://images.unsplash.com/photo-1530143584546-02191bc84eb5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+                  alt=""
+                  role="presentation"
+                />
+              </div>
+              <h2 class="carousel_title">Slide 4</h2>
+            </li>
+          </ul>
+        </div>
+
+        <button
+          type="button"
+          class="carousel_btn jsNext"
+          aria-label="Next slide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+          </svg>
+        </button>
+      </div>
+    </main>
+    <!-- partial -->
+    <script src="./script.js"></script>
+  </body>
+</html>
