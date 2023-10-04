@@ -5,34 +5,34 @@ let slides = [...slider.children];
 // Initial slides position, so user can go from first to last slide (click to the left first)
 slider.prepend(slides[slides.length - 1]);
 
-// // Creating dot for each slide
-// const createDots = (carousel, initSlides) => {
-//   const dotsContainer = document.createElement("div");
-//   dotsContainer.classList.add("carousel_nav");
+// Creating dot for each slide
+const createDots = (carousel, initSlides) => {
+  const dotsContainer = document.createElement("div");
+  dotsContainer.classList.add("carousel_nav");
 
-//   initSlides.forEach((slide, index) => {
-//     const dot = document.createElement("button");
-//     dot.type = "button";
-//     dot.classList.add("carousel_dot");
-//     dot.setAttribute("aria-label", `Slide number ${index + 1}`);
-//     slide.dataset.position = index;
-//     slide.classList.contains("is-selected") && dot.classList.add("is-selected");
-//     dotsContainer.appendChild(dot);
-//   });
+  initSlides.forEach((slide, index) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.classList.add("carousel_dot");
+    dot.setAttribute("aria-label", `Slide number ${index + 1}`);
+    slide.dataset.position = index;
+    slide.classList.contains("is-selected") && dot.classList.add("is-selected");
+    dotsContainer.appendChild(dot);
+  });
 
-//   carousel.appendChild(dotsContainer);
+  carousel.appendChild(dotsContainer);
 
-//   return dotsContainer;
-// };
+  return dotsContainer;
+};
 
-// // Updating relevant dot
-// const updateDot = (slide) => {
-//   const currDot = dotNav.querySelector(".is-selected");
-//   const targetDot = slide.dataset.position;
+// Updating relevant dot
+const updateDot = (slide) => {
+  const currDot = dotNav.querySelector(".is-selected");
+  const targetDot = slide.dataset.position;
 
-//   currDot.classList.remove("is-selected");
-//   dots[targetDot].classList.add("is-selected");
-// };
+  currDot.classList.remove("is-selected");
+  dots[targetDot].classList.add("is-selected");
+};
 
 // Handling arrow buttons
 const handleArrowClick = (arrow) => {
