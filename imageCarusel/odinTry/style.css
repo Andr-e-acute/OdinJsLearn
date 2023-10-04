@@ -1,0 +1,105 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+}
+:root {
+  --img-width: 70vw;
+  --img-gap: 2vw;
+}
+h1 {
+  font-size: 3rem;
+}
+.frame {
+  width: 100%;
+  height: 100vh;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.img-Container {
+  position: relative;
+  width: 80%;
+  height: 70%;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img-Container > img {
+  width: 80%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  padding: 0px 10px;
+  transform: translateX(-100%);
+  transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+}
+.img-Container > img.selected {
+  transform: translateX(0);
+  transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.img-Container > img.selected ~ img {
+  transform: translateX(+200%);
+}
+.img-Container > img.selected + img {
+  transform: translateX(+100%);
+  transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.carousel-butt {
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 4rem;
+  top: 50%;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: rgba(1, 1, 1, 0.5);
+  border-radius: 0.25rem;
+  padding: 0 0.5rem;
+}
+.carousel-butt:hover,
+.carousel-butt:focus {
+  color: white;
+  background-color: rgba(1, 1, 1, 0.9);
+}
+.carousel-butt.prev {
+  left: 1rem;
+}
+.carousel-butt.next {
+  right: 1rem;
+}
+.navDots {
+  position: absolute;
+  bottom: 15%;
+}
+.navDot {
+  background-color: rgba(1, 1, 1, 0.5);
+  margin: 0.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 0.1rem solid grey;
+  border-radius: 50%;
+}
+.navDot.active {
+  background-color: rgba(255, 255, 255, 0.679);
+}
