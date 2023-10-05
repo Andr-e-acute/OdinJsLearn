@@ -95,8 +95,8 @@ h1 {
 .navDot {
   background-color: rgba(1, 1, 1, 0.5);
   margin: 0.5rem;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.1rem solid grey;
   border-radius: 50%;
 }
