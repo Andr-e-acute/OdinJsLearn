@@ -2,6 +2,8 @@ const imgTrack = document.querySelector(".img-Container");
 const buttons = document.querySelectorAll(".carousel-butt");
 const originalImages = [...imgTrack.children];
 const navDots = createNavDots();
+const slideTiming = 5000;
+let interval;
 
 // create navigationDots in the correct amount and return them
 function createNavDots() {
@@ -24,6 +26,13 @@ function navDotIndicator() {
   });
   navDots[actualImagesIndex].classList.add("active");
 }
+// move forward automatic
+const slideInterval = () =>
+  (interval = setInterval(() => {
+    const imgTrack = document.querySelector(".img-Container");
+    const images = [...imgTrack.children];
+    nextImage(imgTrack, images);
+  }, slideTiming));
 
 function nextImage(imgContainer, images) {
   imgContainer.append(images[0]);
@@ -41,15 +50,9 @@ function prevImage(imgContainer, images) {
   images[index - 1].classList.add("selected");
   navDotIndicator();
 }
-// on start
-// start with the first image in html
-// imgTrack.prepend(originalImages[originalImages.length - 1]);
-prevImage(imgTrack, originalImages);
 
-// imgTrack left right button eventlistener
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    // is there a alternative live html collection or so?
     const imgTrack = document.querySelector(".img-Container");
     const images = [...imgTrack.children];
     if (button.classList.contains("prev")) {
@@ -58,10 +61,6 @@ buttons.forEach((button) => {
     if (button.classList.contains("next")) {
       nextImage(imgTrack, images);
     }
-
-    // move to the next image
-
-    //  I can use this for the indicator
   });
 });
 
@@ -83,7 +82,6 @@ navDots.forEach((dotButt) => {
         const imgTrack = document.querySelector(".img-Container");
         const actualImages = [...imgTrack.children];
         nextImage(imgTrack, actualImages);
-        // timer?
       }
     }
     if (moveImage < 0) {
@@ -93,8 +91,13 @@ navDots.forEach((dotButt) => {
         const imgTrack = document.querySelector(".img-Container");
         const actualImages = [...imgTrack.children];
         prevImage(imgTrack, actualImages);
-        // timer?
       }
     }
   });
 });
+imgTrack.addEventListener("mouseover", () => clearInterval(interval));
+imgTrack.addEventListener("mouseleave", slideInterval);
+
+// first Load
+prevImage(imgTrack, originalImages);
+slideInterval();
