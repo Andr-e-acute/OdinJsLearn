@@ -1,5 +1,6 @@
-const imgTrack = document.querySelector(".img-Container");
-const buttons = document.querySelectorAll(".carousel-butt");
+const frame = document.querySelector(".frame");
+const imgTrack = frame.querySelector(".img-Container");
+const buttons = frame.querySelectorAll(".carousel-butt");
 const originalImages = [...imgTrack.children];
 const navDots = createNavDots();
 const slideTiming = 5000;
@@ -7,7 +8,7 @@ let interval;
 
 // create navigationDots in the correct amount and return them
 function createNavDots() {
-  const navDotsContainer = document.querySelector(".navDots");
+  const navDotsContainer = frame.querySelector(".navDots");
   originalImages.forEach((image) => {
     const navDot = document.createElement("button");
     navDot.classList.add("navDot");
@@ -34,7 +35,9 @@ const slideInterval = () =>
     nextImage(imgTrack, images);
   }, slideTiming));
 
-function nextImage(imgContainer, images) {
+function nextImage() {
+  const imgContainer = document.querySelector(".img-Container");
+  const images = [...imgTrack.children];
   imgContainer.append(images[0]);
   const selected = document.querySelector(".img-Container > .selected");
   const index = images.indexOf(selected);
@@ -42,7 +45,9 @@ function nextImage(imgContainer, images) {
   images[index + 1].classList.add("selected");
   navDotIndicator();
 }
-function prevImage(imgContainer, images) {
+function prevImage() {
+  const imgContainer = document.querySelector(".img-Container");
+  const images = [...imgTrack.children];
   imgContainer.prepend(images[images.length - 1]);
   const selected = document.querySelector(".img-Container > .selected");
   const index = images.indexOf(selected);
@@ -53,13 +58,11 @@ function prevImage(imgContainer, images) {
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    const imgTrack = document.querySelector(".img-Container");
-    const images = [...imgTrack.children];
     if (button.classList.contains("prev")) {
-      prevImage(imgTrack, images);
+      prevImage();
     }
     if (button.classList.contains("next")) {
-      nextImage(imgTrack, images);
+      nextImage();
     }
   });
 });
@@ -71,33 +74,55 @@ navDots.forEach((dotButt) => {
     const dotIndex = [...navDots].indexOf(dotButt);
     const actualImages = [...imgTrack.children];
     const actualImagesIndex = originalImages.indexOf(actualImages[1]);
-    const moveImage = dotIndex - actualImagesIndex;
+    let moveImage = dotIndex - actualImagesIndex;
 
-    console.log(
-      `dotIndex:${dotIndex} and the images has Indexof:${actualImagesIndex} moveImage ${moveImage} `
-    );
     if (moveImage > 0) {
-      console.log(`move ${moveImage} times to the right`);
-      for (let i = 0; i < moveImage; i++) {
-        const imgTrack = document.querySelector(".img-Container");
-        const actualImages = [...imgTrack.children];
-        nextImage(imgTrack, actualImages);
+      // first move should be instantly
+      nextImage();
+      moveImage--;
+
+      if (moveImage > 0) {
+        const multiMoveInterval = setInterval(function () {
+          nextImage();
+          moveImage--;
+          console.log(moveImage);
+          if (moveImage === 0) {
+            clearInterval(multiMoveInterval);
+          }
+        }, 200);
       }
+      // alternative for instant jump
+      // console.log(`move ${moveImage} times to the right`);
+      // for (let i = 0; i < moveImage; i++) {
+      //   nextImage();
+      // }
     }
     if (moveImage < 0) {
-      console.log(`move ${moveImage} times to the left`);
+      // first move should be instantly
+      prevImage();
+      moveImage++;
+      if (moveImage < 0) {
+        const multiMoveInterval = setInterval(function () {
+          prevImage();
+          moveImage++;
 
-      for (let i = 0; i > moveImage; i--) {
-        const imgTrack = document.querySelector(".img-Container");
-        const actualImages = [...imgTrack.children];
-        prevImage(imgTrack, actualImages);
+          if (moveImage === 0) {
+            clearInterval(multiMoveInterval);
+          }
+        }, 200);
       }
+      // // alternative for instant jump
+      // console.log(`move ${moveImage} times to the left`);
+      // for (let i = 0; i > moveImage; i--) {
+      //   prevImage();
+      // }
     }
   });
 });
-imgTrack.addEventListener("mouseover", () => clearInterval(interval));
-imgTrack.addEventListener("mouseleave", slideInterval);
+frame.addEventListener("mouseover", () => clearInterval(interval));
+frame.addEventListener("mouseleave", slideInterval);
 
 // first Load
-prevImage(imgTrack, originalImages);
+
+prevImage();
 slideInterval();
