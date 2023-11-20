@@ -7,5 +7,56 @@
     <script src="script.js" defer></script>
     <title>Odin FormValidation in Js project</title>
   </head>
-  <body></body>
+  <body>
+    <div class="formWrapper">
+      <h1>Form Validation</h1>
+      <p>
+        a project for the Odin Project <br />
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+      </p>
+
+      <form>
+        <legend>
+          <p class="required-info">
+            Required fields are followed by
+            <span aria-label="required">*</span>.
+          </p>
+        </legend>
+        <div class="email-input wrapper">
+          <label for="user-email">
+            Email Address <span aria-label="required">*</span></label
+          >
+          <input type="email" id="user-email" required />
+          <div class="error-field"></div>
+        </div>
+
+        <div class="country-input wrapper">
+          <label for="user-country"> country </label>
+          <input type="text" id="user-country" required />
+          <div class="error-field"></div>
+        </div>
+        <div class="zip-input wrapper">
+          <label for="user-zip">zip-code </label>
+          <input type="text" id="user-zip" pattern="\d" />
+          <div class="error-field"></div>
+        </div>
+        <div class="password-input wrapper">
+          <label for="user-password"
+            >Password<span aria-label="required">*</span></label
+          >
+          <input type="password" id="user-password" required minlength="8" />
+          <div class="error-field"></div>
+        </div>
+
+        <div class="confirmPwd-input wrapper">
+          <label for="user-confirmPwd"
+            >Confirm Password<span aria-label="required">*</span></label
+          >
+          <input type="password" id="user-confirmPwd" required />
+          <div class="error-field"></div>
+        </div>
+        <button id="submit">SIGN UP</button>
+      </form>
+    </div>
+  </body>
 </html>
