@@ -1,6 +1,6 @@
 const wrapper = document.querySelectorAll(".wrapper");
-
-function createError(input) {
+const form = document.querySelector("form");
+function createValidityError(input) {
   let error = "";
   const label = document.querySelector(
     `label[for = "${input.id}"]`
@@ -25,18 +25,43 @@ function createError(input) {
   }
 
   // confirm pwd the same
+
+  return error;
+}
+function createPasswordError(input) {
+  let error = "";
+  //password confirm not the same
   if (input.id === "user-confirmPwd") {
     const password = document.querySelector("#user-password").value;
-    console.log(password);
     if (password !== input.value) {
-      console.log("not the same");
+      error = `${error}not the same password`;
+    }
+  }
+
+  //   test password
+  if (
+    input.id === "user-password" &&
+    document.querySelector("#user-password").value.length !== 0
+  ) {
+    const password = document.querySelector("#user-password").value;
+    const specialReg = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    const number = /\d/;
+    // contains special characaters
+    if (!specialReg.test(password)) {
+      error = `${error} needs to contain a special character like:"${specialReg}"<br>`;
+    }
+    //contains a number
+    if (!number.test(password)) {
+      console.log("contains no number");
+      error = `${error} needs to contain a number<br>`;
     }
   }
   return error;
 }
 function testInput(input, wrapper) {
   let valid = input.validity.valid;
-  let error=""
+  let error = "";
+  //   for the lazy error testing
   if (!input.dataset.untouched) {
     input.dataset.untouched = "true";
     input.addEventListener("input", () => {
@@ -44,50 +69,21 @@ function testInput(input, wrapper) {
     });
   }
   if (valid) {
-    wrapper.classList.remove("error");
-    wrapper.querySelector(".error-field").innerHTML = "";
+    error = "";
   } else if (!valid) {
-    wrapper.classList.add("error");
-    wrapper.querySelector(".error-field").innerHTML = createError(input);
+    error = createValidityError(input);
   }
-  //password confirm not the same
-  if (input.id === "user-confirmPwd") {
-    const password = document.querySelector("#user-password").value;
+  // check password
+  error = `${error}${createPasswordError(input)}`;
 
-    if (password !== input.value) {
-      wrapper.classList.add("error");
-      wrapper.querySelector(".error-field").innerHTML = `${
-        wrapper.querySelector(".error-field").innerHTML
-      }
-        not the same password`;
-    }
-  }
-  //   test password
-  if (input.id === "user-password") {
-    let minPwd = "";
-    const password = document.querySelector("#user-password").value;
-    const specialReg = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    const number = /\d/;
-    if (password.length === 0) return;
-    // contains special characaters
-    else if (!specialReg.test(password)) {
-      minPwd = `needs to contain a special character like:"${specialReg}"<br>`;
-    }
-    //contains a number
-    else if (!number.test(password)) {
-      minPwd += `needs to contain a number`;
-    } else {
-      wrapper.classList.remove("error");
-      wrapper.querySelector(".error-field").innerHTML = "";
-      return;
-    }
+  if (error.length === 0) {
+    wrapper.classList.remove("error");
+    wrapper.querySelector(".error-field").innerHTML = error;
+  } else {
+    wrapper.querySelector(".error-field").innerHTML = error;
     wrapper.classList.add("error");
-    wrapper.querySelector(".error-field").innerHTML = `${
-      wrapper.querySelector(".error-field").innerHTML
-    }${minPwd}`;
   }
-
-  console.log()
+  input.setCustomValidity(error.replace("<br>", ""));
 }
 
 wrapper.forEach((container) => {
@@ -95,4 +91,9 @@ wrapper.forEach((container) => {
   input.addEventListener("blur", () => {
     testInput(input, container);
   });
+});
+form.addEventListener("submit", (e) => {
+  console.log("submitted");
+  e.preventDefault();
+  document.getElementById("succees").classList.remove("hidden");
 });
