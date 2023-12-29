@@ -4,23 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      img {
+        width: 300px;
+        object-fit: cover;
+      }
+    </style>
   </head>
   <body>
-    <img src="#" />
+    <div class="image-container">
+      <h1></h1>
+      <img src="#" />
+    </div>
+    <form class="search">
+      <input type="text" />
+      <button>search</button>
+    </form>
+    <button id="newGif">new gif</button>
     <script>
+      const imageContainerError = document.querySelector(".image-container>h1");
       const img = document.querySelector("img");
-      fetch(
-        "https://api.giphy.com/v1/gifs/translate?api_key=missing key=cats",
-        {
-          mode: "cors",
-        }
-      )
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (response) {
-          img.src = response.data.images.original.url;
-        });
+      const text = document.querySelector("input");
+      const form = document.querySelector("form");
+      const newGifButt = document.getElementById("newGif");
+
+      function getGif(searchStr = "cat") {
+        console.log(searchStr);
+        fetch(
+          // `https://api.giphy.com/v1/gifs/translate?api_key=bb2006d9d3454578be1a99cfad6asdf5913d&s=${searchStr}`,
+          `https://api.giphy.com/v1/gifs/translate?api_key=bb2006d9d3454578be1a99cfad65913d&s=${searchStr}`,
+          {
+            mode: "cors",
+          }
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (response) {
+            console.log(response);
+            img.src = response.data.images.original.url;
+            imageContainerError.textContent = "";
+          })
+          .catch((error) => {
+            console.log(searchStr);
+            imageContainerError.textContent = "something went somewhere wrong";
+          });
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        getGif(e.target[0].value);
+      });
+      newGifButt.addEventListener("click", () => {
+        getGif(text.value || "tree");
+      });
+      getGif();
     </script>
   </body>
 </html>
