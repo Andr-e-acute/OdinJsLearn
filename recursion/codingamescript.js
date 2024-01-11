@@ -77,7 +77,7 @@ function all(arr, cb) {
 var allAreLessThanSeven = all([2, 2, 6], function (num) {
   return num < 7;
 });
-console.log(allAreLessThanSeven);
+// console.log(allAreLessThanSeven);
 
 //------------------------------------------------------
 
@@ -89,3 +89,139 @@ console.log(allAreLessThanSeven);
 
 // var six = productOfArray([1,2,3]) // 6
 // var sixty = productOfArray([1,2,3,10]) // 60
+function productOfArray(arr) {
+  let arrCopy = [...arr];
+  console.log(arrCopy);
+  if (arrCopy.length == 1) {
+    return arrCopy[0];
+  } else {
+    // arrCopy[0] *= arrCopy.pop();
+    // return productOfArray(arrCopy);
+    return arrCopy.pop() * productOfArray(arrCopy);
+  }
+}
+// console.time("arr");
+// productOfArray([1, 2, 3]);
+// productOfArray([1, 2, 3, 10]); // 60
+// console.timeEnd("arr");
+//------------------------------------------------------
+// version of the previous question that change the array
+function productOfArray2(arr) {
+  arr.length == 1 ? arr[0] : arr.pop() * productOfArray2(arr);
+}
+// console.time("arr2");
+// productOfArray2([1, 2, 3]);
+// productOfArray2([1, 2, 3, 10]); // 60
+// console.timeEnd("arr2");
+// much faster don't need to copy the array everytime?
+
+//------------------------------------------------------
+// Question 6: Search JS object
+// Write a function called contains that searches for a value in a nested object.
+//  It returns true if the object contains that value.
+var nestedObject = {
+  data: {
+    info: {
+      stuff: {
+        thing: {
+          moreStuff: {
+            magicNumber: 44,
+            something: "foo2",
+          },
+        },
+      },
+    },
+  },
+};
+
+function contains(obj, value) {
+  for (const key in obj) {
+    if (typeof obj[key] === "object") {
+      return contains(obj[key], value);
+    } else if (obj[key] === value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+// console.log(contains(nestedObject, "foo"));
+// let doesntHaveIt = contains(nestedObject, "foo"); // false
+
+//------------------------------------------------------
+
+// Question 7: Parse a multi-dimensional array
+// Given a multi-dimensional integer array,
+//  return the total number of integers stored inside this array
+
+// Sample:
+
+// console.log(totalIntegers([[[5], 3], 0, 2, ["foo"], [], [4, [5, 6]]]));
+
+function totalIntegers(array) {
+  console.log(array);
+  if (array.length === 0) return 0;
+
+  let total = 0;
+  let last = array.pop();
+
+  if (Array.isArray(last)) {
+    total += totalIntegers(last);
+  } else if (Number.isInteger(last)) {
+    total += 1;
+  }
+  console.log("total:" + total);
+  return total + totalIntegers(array);
+}
+
+//------------------------------------------------------
+
+// Question 8:
+// Write a function that sums squares of numbers in list that may contain more lists
+
+function SumSquares(arr) {
+  if (arr.length === 0) return 0;
+  let result = 0;
+
+  arr.forEach((element) => {
+    if (Array.isArray(element)) {
+      result += SumSquares(element);
+    } else {
+      result += element * element;
+    }
+  });
+
+  return result;
+}
+// Sample:
+
+// var l = [1, 2, 3];
+// console.log(SumSquares(l)); // 1 + 4 + 9 = 14
+
+// l = [[1, 2], 3];
+// console.log(SumSquares(l)); // 1 + 4 + 9 = 14
+
+// l = [[[[[[[[[1]]]]]]]]];
+// console.log(SumSquares(l)); // 1 = 1
+
+// l = [10, [[10], 10], [10]];
+// console.log(SumSquares(l)); // 100 + 100 + 100 + 100 = 400
+
+//------------------------------------------------------
+
+// Question 9:
+// The function should return an array containing repetitions of the number argument.
+// For instance, replicate(3, 5) should return [5,5,5].
+// If the times argument is negative, return an empty array.
+
+// Sample:
+function replicate(count, number) {
+  if (count <= 0) {
+    return [];
+  } else {
+    return [number].concat(replicate(count - 1, number));
+  }
+}
+console.log(replicate(3, 5)); // [5, 5, 5]
+console.log(replicate(1, 69)); // [69]
+console.log(replicate(-2, 6)); // []
