@@ -64,14 +64,28 @@ function factorial(num) {
 
 // Sample:
 
-var allAreLessThanSeven = all([1, 2, 9], function (num) {
+function all(arr, cb) {
+  let arrCopy = [...arr];
+  if (arrCopy.length == 0) {
+    return true;
+  } else if (cb(arrCopy.pop())) {
+    return all(arrCopy, cb);
+  } else {
+    return false;
+  }
+}
+var allAreLessThanSeven = all([2, 2, 6], function (num) {
   return num < 7;
 });
+console.log(allAreLessThanSeven);
 
-console.log(allAreLessThanSeven); // false
+//------------------------------------------------------
 
-function all(arr, cb) {
-  //   copy arr
-  let arrCopy = [...arr];
-  console.log(arrCopy.length);
-}
+// Question 5: Product of an array
+// Write a function called productOfArray which takes in an array of numbers
+// and returns the product of them all
+
+// Sample:
+
+// var six = productOfArray([1,2,3]) // 6
+// var sixty = productOfArray([1,2,3,10]) // 60
